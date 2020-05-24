@@ -1,0 +1,147 @@
+
+<html>
+  <body>
+    <div class="center">
+      <a class="button1" id="btn">Je veux voir Shrek</a>
+    </div>
+    <a class="lang" id="lang">English</a>
+    <canvas id="canvas"></canvas>
+    <script>
+      const btn = document.getElementById("btn");
+      const lienLangue = document.getElementById("lang");
+      const canvas = document.getElementById("canvas");
+      const resolution = 2;
+     	const largeur = window.innerWidth*resolution
+      const hauteur = window.innerHeight*resolution
+      const ctx = canvas.getContext("2d");
+      const shrek = new Image();
+      canvas.width = largeur;
+      canvas.height = hauteur;
+      const générerShrek = () => {
+        const grosseurShrek = resolution*100;
+        const ratio = 1.3;
+        let x = Math.random()*largeur  - grosseurShrek;
+        let y = Math.random()*hauteur - grosseurShrek/ratio;
+        ctx.drawImage(shrek, x, y, grosseurShrek*ratio, grosseurShrek);
+        window.requestAnimationFrame(générerShrek)
+      }
+      shrek.src = "https://faceswaponline.com/wp-content/uploads/2017/10/shrek-innocent.png";
+      btn.addEventListener("click", () => {
+        btn.classList.add("fade-out");
+        lienLangue.classList.add("fade-out");
+        canvas.style.visibility = "visible";
+        canvas.classList.add("fade-in");
+        canvas.style.opacity = 1;
+        générerShrek()
+      });
+      lienLangue.addEventListener("click", () => {
+        if(lienLangue.innerHTML === "English") {
+          btn.innerHTML = "I want to see Shrek"
+          lienLangue.innerHTML = "Français"
+        } else {
+          btn.innerHTML = "Je veux voir Shrek"
+          lienLangue.innerHTML = "English"
+        }
+      });
+    </script>
+    <style>
+      canvas {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      @keyframes fadeOut {
+          0% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+          }
+      }
+
+      @keyframes fadeIn {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+      }
+
+      .fade-out {
+        display: block;
+        -webkit-animation: fadeOut 1s;
+        animation: fadeOut 1s;
+        animation-fill-mode: forwards;
+      }
+
+      .fade-in {
+        display: block;
+        -webkit-animation: fadeIn 1s;
+        animation: fadeIn 1s;
+        animation-fill-mode: forwards;
+      }
+
+      a.button1 {
+        display: inline-block;
+        padding: 0.35em 1.2em;
+        border: 0.1em solid #FFFFFF;
+        margin: 0 0.3em 0.3em 0;
+        border-radius: 0.12em;
+        box-sizing: border-box;
+        text-decoration: none;
+        font-family: 'Roboto',sans-serif;
+        font-weight: 300;
+        color: #FFFFFF;
+        text-align: center;
+        transition: all 0.2s;
+        font-size: 400%;
+        cursor: pointer;
+        user-select: none;
+        animation-fill-mode: forwards;
+      }
+
+      a.button1:hover{
+        color: #000000;
+        background-color: #FFFFFF;
+      }
+
+      @media all and (max-width:30em){
+        a.button1{
+          display: block;
+          margin:0.4em auto;
+        }
+      }
+
+      .center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+
+      body {
+        background-color: black;
+      }
+      
+      .lang {
+      	float: right;
+        font-family: 'Roboto',sans-serif;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+        user-select: none;
+      }
+      
+      .lang:hover {
+      	text-decoration: underline;
+      }
+    </style>
+  </body>
+</html>
